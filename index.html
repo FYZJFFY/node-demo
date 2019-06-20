@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSONP测试</title>
+</head>
+
+<body>
+    <!-- <form action="http://localhost:8002/pay"> -->
+    <h5 style="color: red;">您的账户余额是:<span id="num" class="num"></span></span></h5>
+    <button id="btn1">打1元钱</button>
+    <!-- </form> -->
+</body>
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script>
+    var btn = document.getElementById("btn1");
+    btn.addEventListener("click", e => {
+        let script = document.createElement("script");
+        script.src = "http://localhost:8002/pay?cbk=cbk";
+        document.body.appendChild(script);
+
+        // $.ajax({
+        //     url: "http://localhost:8002/pay",
+        //     type: "post",
+        //     success: function () {
+
+        //     }
+        // });
+    });
+
+    function cbk(w) {
+        console.log(w);
+        if (w.code == 1) {
+            document.getElementById("num").textContent = w.data;
+        }
+    }
+</script>
+
+</html>
