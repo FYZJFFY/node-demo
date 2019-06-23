@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自己封装jq，实现promise</title>
+</head>
+
+<body>
+    <button id="myButton" class="js-ajax-submit">发请求</button>
+    <button id="myButton2" class="js-ajax-submit">用promise发请求</button>
+</body>
+<script src="ffyjq.js"></script>
+<script>
+    var btn = document.getElementById("myButton");
+    btn.addEventListener("click", function () {
+
+        $.ajax({
+            // url: "http://frank.com:8002/yyy",
+            url: "http://frank.com:8002/yyyy", //不存在的路径
+            type: "post",
+            body: JSON.stringify({
+                aaa: "bbb"
+            }),
+            success: function (w) {
+                console.log(w);
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+
+
+    });
+
+
+    //promise ajax
+    var btn2 = document.getElementById("myButton2");
+    btn2.addEventListener("click", function () {
+
+        $.ajax2({
+            url: "http://frank.com:8002/yyy",
+            // url: "http://frank.com:8002/yyyy", //不存在的路径
+            type: "post",
+            body: JSON.stringify({
+                aaa: "bbb"
+            }),
+
+        }).then(
+            (w) => {
+                console.log(w);
+            },
+            (e) => {
+                console.log(e);
+            }
+        );
+
+
+    });
+</script>
+
+</html>

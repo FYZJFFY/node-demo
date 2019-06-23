@@ -35,6 +35,16 @@ var server = http.createServer(function (request, response) {
     //   '<script src="/main.js"></script>' +
     //   '</body></html>')
     response.end(string);
+  } else if (path === "/index2.html") {
+    response.statusCode = 200;
+    var string = fs.readFileSync("./index2.html", "utf-8");
+    response.setHeader("Content-Type", "text/html;charset=utf-8");
+    response.end(string);
+  } else if (path === "/index3.html") {
+    response.statusCode = 200;
+    var string = fs.readFileSync("./index3.html", "utf-8");
+    response.setHeader("Content-Type", "text/html;charset=utf-8");
+    response.end(string);
   } else if (path === "/style.css") {
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/css;charset=utf-8')
@@ -45,6 +55,11 @@ var server = http.createServer(function (request, response) {
     response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
     response.write('alert("这是JS执行的")')
     response.end()
+  } else if (path == "/ffyjq.js") {
+    response.statusCode = 200;
+    var string = fs.readFileSync("./ffyjq.js", "utf-8");
+    response.setHeader("Content-Type", "text/javascript;charset=utf-8");
+    response.end(string);
   } else if (path == "/pay") {
     var num = fs.readFileSync("./money", "utf-8");
     num = num - 1;
@@ -56,6 +71,18 @@ var server = http.createServer(function (request, response) {
       "data": num
     };
     response.write(`${query.cbk}.call(undefined,${JSON.stringify(data)});`);
+    response.end();
+  } else if (path === "/yyy") {
+    response.statusCode = 200;
+    response.setHeader("Content-type", "text/json;charset=utf-8");
+    // 允许http://frank.com:8001请求我
+    response.setHeader("Access-Control-Allow-Origin", "http://frank.com:8001");
+    response.write(`
+      "note":{
+        "to":"ffy",
+        "from":"111"
+      }
+    `);
     response.end();
   } else {
     response.statusCode = 404
