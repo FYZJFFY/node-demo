@@ -41,14 +41,23 @@
     btn2.addEventListener("click", function () {
 
         $.ajax2({
-            url: "http://frank.com:8002/yyy",
-            // url: "http://frank.com:8002/yyyy", //不存在的路径
+            // url: "http://frank.com:8002/yyy",
+            url: "http://frank.com:8002/yyyy", //不存在的路径
             type: "post",
             body: JSON.stringify({
                 aaa: "bbb"
             }),
 
         }).then(
+            (w) => {
+                console.log(w);
+                return w;
+            },
+            (e) => {
+                console.log(e);
+                return "已经处理";
+            }
+        ).then(
             (w) => {
                 console.log(w);
             },
